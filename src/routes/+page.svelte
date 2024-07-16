@@ -1,2 +1,49 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	import { APIBase, type APIItem } from '$lib/base';
+	import { onMount } from 'svelte';
+
+	async function load() {
+		const api = await new APIBase().init();
+
+		return api.get_random_item();
+	}
+
+	let data: Promise<APIItem>;
+
+	onMount(() => {
+		data = load();
+		data.then((product) => {
+			console.log(product);
+		});
+	});
+
+	let guess = 50;
+	let showSolution = false;
+
+	function onSubmit(event: SubmitEvent) {
+		event.preventDefault();
+		showSolution = true;
+	}
+</script>
+
+{#if data}
+	{#await data}
+		loading
+	{:then product}
+		<img src={product.image_front_url} alt="" />
+		<div>{product.product_name}</div>
+		<form on:submit={onSubmit}>
+			<label for="">{guess}</label>
+			<input bind:value={guess} type="range" name="" id="" />
+			<button type="submit">guess!</button>
+		</form>
+		{#if showSolution}
+			<div>
+				sugar per 100 g: {product.nutriments.sugars_100g} g
+			</div>
+			<div>
+				you are off by {guess - product.nutriments.sugars_100g} g
+			</div>
+		{/if}
+	{/await}
+{/if}
