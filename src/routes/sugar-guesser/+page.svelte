@@ -14,13 +14,13 @@
 	onMount(() => {
 		load().then((data) => {
 			api = data;
-			api.items = api.shuffleArray(api.items)
-			next()
+			api.items = api.shuffleArray(api.items);
+			next();
 		});
 	});
 
 	let guess = 50;
-	let productNumber = 0
+	let productNumber = 0;
 	let showSolution = false;
 
 	function onSubmit(event: SubmitEvent) {
@@ -30,8 +30,8 @@
 
 	function next() {
 		showSolution = false;
-		productNumber++
-		product = api.items[productNumber]
+		productNumber++;
+		product = api.items[productNumber];
 	}
 </script>
 
@@ -52,6 +52,7 @@
 			</div>
 			<div class="flex w-full flex-col gap-4">
 				<form class="card flex w-full flex-col items-center p-2" on:submit={onSubmit}>
+					<div>Guess how much sugar is in this product.</div>
 					<label class="p-2 text-2xl font-bold text-surface-900" for=""
 						>{guess}&nbsp;g&nbsp;/&nbsp;100&nbsp;g</label
 					>
