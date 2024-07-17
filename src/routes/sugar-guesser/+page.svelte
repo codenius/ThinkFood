@@ -33,6 +33,13 @@
 		productNumber++;
 		product = api.items[productNumber];
 	}
+
+	function getColor() {
+		const diff = Math.abs(guess - product.nutriments.sugars_100g);
+		if (diff < 10) return 'text-success-500';
+		if (diff < 20) return 'text-warning-500';
+		return 'text-error-500';
+	}
 </script>
 
 <div class="flex w-full flex-col items-center pb-4">
@@ -66,10 +73,12 @@
 						class="card variant-filled flex w-full flex-col items-center p-2 text-xl font-semibold"
 					>
 						<div>
-							Sugar per 100 g: {product.nutriments.sugars_100g} g
+							Sugar per 100 g: <span class="px-2 text-3xl">{product.nutriments.sugars_100g} g</span>
 						</div>
 						<div>
-							You are off by {guess - product.nutriments.sugars_100g} g
+							You are off by: <span class={`px-2 text-3xl ${getColor()}`}
+								>{Math.abs(guess - product.nutriments.sugars_100g)} g</span
+							>
 						</div>
 					</div>
 					<button on:click={next} class="variant-filled btn">Next →</button>
