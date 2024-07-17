@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { APIBase, type APIItem } from '$lib/base';
+	import Product from '$lib/components/Product.svelte';
 	import { onMount } from 'svelte';
 
 	async function load() {
@@ -30,8 +31,7 @@
 	{#await data}
 		loading
 	{:then product}
-		<img src={product.image_front_url} alt="" />
-		<div>{product.product_name}</div>
+		<Product product={product}></Product>
 		<form on:submit={onSubmit}>
 			<label for="">{guess}</label>
 			<input bind:value={guess} type="range" name="" id="" />
