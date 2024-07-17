@@ -32,21 +32,32 @@ export class APIBase {
 			'sort_by=popularity_key', // less work for the api server
 			//'categories_tags=chocolate|snacks', // https://world.openfoodfacts.org/categories
 			'fields=nutriments,code,product_name,image_front_url',
-			'manufacturing_places_tags=Deutschland'
-
+			'manufacturing_places_tags=Deutschland',
+			'page_size=80',
+			'page=1'
 		];
 		let request = await fetch(
 			'https://world.openfoodfacts.org/api/v2/search?' + search_tags.join('&')
 		);
 		let data = await request.json();
 		this.items = data.products;
-		this.items = this.items.map(item => {
-			item.nutriments.sugars_100g = Math.round(item.nutriments.sugars_100g)
+		this.items = this.items.map((item) => {
+			item.nutriments.sugars_100g = Math.round(item.nutriments.sugars_100g);
 			return item;
-		})
+		});
 	}
 
 	get_random_item(this: APIBase): APIItem {
 		return this.items[Math.round(Math.random() * this.items.length)];
+	}
+
+	/* Randomize array in-place using Durstenfeld shuffle algorithm */
+	shuffleArray(input: APIItem[]) {
+		let array = [...input];
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[array[i], array[j]] = [array[j], array[i]];
+		}
+		return array;
 	}
 }

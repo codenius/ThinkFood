@@ -14,11 +14,13 @@
 	onMount(() => {
 		load().then((data) => {
 			api = data;
-			next();
+			api.items = api.shuffleArray(api.items)
+			next()
 		});
 	});
 
 	let guess = 50;
+	let productNumber = 0
 	let showSolution = false;
 
 	function onSubmit(event: SubmitEvent) {
@@ -28,7 +30,8 @@
 
 	function next() {
 		showSolution = false;
-		product = api.get_random_item();
+		productNumber++
+		product = api.items[productNumber]
 	}
 </script>
 
