@@ -2,7 +2,7 @@
 export interface APIItem {
 	code: string;
 	product_name: string;
-	nutriments: any;
+	nutriments: Nutriments | any;
 	image_front_url: string;
 }
 
@@ -28,9 +28,9 @@ export class APIBase {
 	async loadItems(this: APIBase) {
 		let search_tags = [
 			'states_tags=nutrition-facts-completed', // search tag for complete nutrition tags
-			'sugar_gt_1', // sugar grater than 1g per 100g (just to be sure!)
+			'sugar_gt_2', // sugar grater than 2g per 100g (just to be sure!)
 			'sort_by=popularity_key', // less work for the api server
-			'categories_tags=chocolate,snacks', // https://world.openfoodfacts.org/categories
+			'categories_tags=chocolate|snacks', // https://world.openfoodfacts.org/categories
 			'fields=nutriments,code,product_name,image_front_url'
 		];
 		let request = await fetch(
