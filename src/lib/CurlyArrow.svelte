@@ -1,6 +1,6 @@
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
 <svg
-	class="h-36 rotate-[-60deg] self-start fill-secondary-900"
+	class="relative h-36 -translate-x-52 rotate-[-60deg] self-start fill-secondary-900 sm:translate-x-20"
 	fill="#000000"
 	version="1.1"
 	id="Capa_1"
